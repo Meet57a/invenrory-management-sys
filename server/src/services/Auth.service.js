@@ -1,6 +1,6 @@
 const httpStatus = require("http-status");
-const UserModel = require("../models/user.model");
 const ApiError = require("../utils/ApiError");
+const UserModel = require("../models/user.model");
 const ProfileModel = require("../models/profile.model");
 const bcrypt = require("bcrypt");
 const AuthValidation = require("../validations/AuthValidation");
@@ -12,8 +12,6 @@ class AuthService {
     static async RegisterUser(body) {
         const { name, email, password } = body;
         const checkExist = await UserModel.findOne({ email: email });
-
-
 
         if (checkExist) {
             throw new ApiError(httpStatus.BAD_REQUEST, "User Already Registered")
@@ -41,7 +39,7 @@ class AuthService {
         const passwordMatch = await bcrypt.compare(password, checkExist.password);
 
         if (!passwordMatch) {
-            throw new ApiError(httpStatus.BAD_REQUEST, "Invalid Credentials")
+            throw new ApiError(httpStatus.BAD_REQUEST, "Password is incorrect")
             return
         }
         

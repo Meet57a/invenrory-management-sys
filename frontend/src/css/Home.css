@@ -1,0 +1,129 @@
+/* order-container start */
+
+.order-container h4 {
+  /* color: #76abae; */
+  font-weight: 500;
+  margin-top: 10px;
+  font-size: 20px;
+  text-align: center;
+}
+.counts-block {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+}
+/* card start */
+.card {
+  background-color: #31363f;
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card h3 {
+  color: #76abae;
+  font-weight: 500;
+}
+.card:nth-child(2) h3 {
+  color: greenyellow;
+}
+.card:nth-child(3) h3 {
+  color: yellow;
+}
+.card:nth-child(4) h3 {
+  color: red;
+}
+
+.icon {
+  height: 40px;
+  width: 40px;
+  background-color: #76abae;
+}
+
+/* card end. */
+
+.order-graph-both {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.orders-revenue-monthly {
+  width: 100%;
+  height: 60vh;
+  background-color: #31363f;
+  border-radius: 10px;
+}
+
+.orders-graph {
+  width: 100%;
+  height: 60vh;
+  background-color: #31363f;
+  border-radius: 10px;
+}
+
+/* order-container end */
+
+/* product-contaoer start */
+
+.product-container h4 {
+  font-weight: 500;
+  margin-top: 10px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.product-activity-section {
+  width: 100%;
+  height: 60vh;
+  margin: 20px 0;
+  display: flex;
+  gap: 20px;
+}
+
+.product-display-card {
+  width: 25%;
+  background-color: #31363f;
+  height: 60vh;
+  border-radius: 10px;
+  padding: 10px;
+}
+.heading-product-display {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0 10px 0;
+  border-bottom: 3px solid #76abae;
+}
+
+.heading-product-display span {
+  color: red;
+  font-weight: bold;
+}
+
+.product-display-data {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  margin: 10px 0 5px;
+  padding: 0 0 5px 0;
+  border-bottom: 1px solid #76abae;
+}
+
+.product-display-data div {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+
+.product-display-data div:nth-child(2) {
+  text-align: end;
+}
+
+.product-graph {
+  width: 100%;
+  height: 70vh;
+  background-color: #31363f;
+  border-radius: 10px;
+}

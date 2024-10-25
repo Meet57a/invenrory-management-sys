@@ -1,6 +1,6 @@
 const httpStatus = require("http-status");
-const AuthService = require("../services/Auth.service");
 const CatchAsync = require("../utils/CatchAsync");
+const AuthService = require("../services/Auth.service");
 
 class AuthController {
     static RegisterUser = CatchAsync(async(req,res)=>{ 

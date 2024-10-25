@@ -1,4 +1,4 @@
-const e = require("cors");
+const cors = require("cors");
 const ApiError = require("../utils/ApiError");
 
 

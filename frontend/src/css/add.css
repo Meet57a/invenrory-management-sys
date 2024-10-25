@@ -1,0 +1,174 @@
+.add-page-body {
+  display: flex;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.add-left-container {
+  width: 15%;
+  height: 100%;
+  background-color: #31363f;
+  border-radius: 10px;
+}
+
+.add-left-container h3 {
+  color: white;
+  padding: 10px;
+}
+
+.add-components {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+.add-components a {
+  font-size: 16px;
+  /* color: #052c3c; */
+  text-decoration: none;
+  position: relative;
+  font-weight: 300;
+  margin: 0 0 10px 0;
+  transition: 0.5s;
+  transform: scale(1);
+}
+
+.add-components a::before {
+  border-top-color: white;
+}
+
+.add-components a::before,
+.add-components a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  border-top-width: 1px;
+}
+
+.add-components a::before {
+  border-top-style: solid;
+  width: 100%;
+}
+
+.add-components a::after {
+  border-top-style: solid;
+  width: 0;
+  transition: width 0.5s ease;
+}
+
+.add-components a:hover {
+  color: #76abae;
+  transform: scale(1.01);
+}
+
+.add-components a:hover::after {
+  width: 100%;
+}
+
+.add-right-container {
+  width: 85%;
+}
+
+.add-info-bar {
+  display: flex;
+
+  padding: 10px;
+  background-color: #31363f;
+  border-radius: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-main-content {
+  background-color: #31363f;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+/* Product Form  start*/
+
+.div-for-flex {
+  display: flex;
+  gap: 10px;
+}
+
+.div-for-flex div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.div-for-flex div select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid white;
+  margin: 8px 0 8px 0;
+  background-color: #40454ea7;
+  height: 45px;
+  color: white;
+}
+
+.textareadiv {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.textareadiv textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid white;
+  margin: 8px 0 8px 0;
+  background-color: #40454ea7;
+  color: white;
+}
+
+.visiblityfield {
+  display: flex;
+  flex-direction: column;
+  margin: 8px 0 8px 0;
+  gap: 8px;
+}
+
+.visiblityfield select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid white;
+  background-color: #40454ea7;
+  height: 45px;
+  color: white;
+}
+.add-button {
+  background-color: #76abae;
+  color: white;
+  padding: 10px 35px 10px 35px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.5s;
+  margin: 10px 0;
+}
+/* product form end  */
+
+/* sub-category-form start  */
+
+.category-select{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 0 8px 0;
+}
+
+.category-select select{
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid white;
+  background-color: #40454ea7;
+  color: white;
+}

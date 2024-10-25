@@ -1,0 +1,62 @@
+.register-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #222831;
+    color: white;
+}
+
+.register-container{
+    height: 70vh;
+    width: 40vw;
+    background-color: #31363f;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+input{
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid white;
+    background-color: #3a3f48;
+    color: white;
+    transition: 0.5s;
+}
+
+button{
+    width: 100%;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #222831;
+    color: white;
+    border: #31363f;
+    margin-top: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.5s;
+}
+
+button:hover{
+    background-color: #393e46;
+    color: white;
+}
+
+h6{
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: normal;
+}
+
+a{
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 500;
+}
+
