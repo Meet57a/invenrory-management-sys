@@ -5,7 +5,7 @@ exports.generateToken = (user,expire = "1d") => {
     return jwt.sign({userid:user._id},PUBLIC_DATA.jwtSecret,{expiresIn:expire})
 }
 
-exports.verifyToken = (token) => {
+exports.verifyToken = (token) => {  
     
     return jwt.verify(token,PUBLIC_DATA.jwtSecret)
 }

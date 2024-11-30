@@ -8,6 +8,8 @@ import { Dialog } from "primereact/dialog";
 import { IoIosWarning } from "react-icons/io";
 import { IoIosSearch } from "react-icons/io";
 import { GoEyeClosed } from "react-icons/go";
+import { IoMdDownload } from "react-icons/io";
+import { PdfQuery } from "../providers/queries/Pdf.query";
 
 export default function Inventory() {
   type Category = {
@@ -434,6 +436,32 @@ export default function Inventory() {
     }
   };
 
+  const handleReportPdf = async () => {
+    const res = await PdfQuery.generatePdfReport();
+
+    if (res["status"] === 200) {
+      toast.success(res["message"], {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+      const a = document.createElement("a");
+      a.href = res["path"];
+      a.download = "report.pdf";
+      a.click();
+    } else {
+      toast.error(res["message"], {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
+  };
+
   return (
     <div className="inventory-body">
       <div className="left-container">
@@ -480,6 +508,10 @@ export default function Inventory() {
               onChange={handleSearch}
               value={search}
             />
+            <button className="report-button" onClick={() => handleReportPdf()}>
+              <IoMdDownload size={15} color="white" />
+              Report
+            </button>
           </div>
         </div>
         <div className="main-content">

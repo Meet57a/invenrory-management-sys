@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Invoice</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background: #f9f9f9;
+    }
+    .invoice-container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background: #fff;
+    }
+    .header {
+      text-align: center;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 10px;
+    }
+    .header img {
+      max-width: 150px;
+    }
+    .header h1 {
+      margin: 10px 0;
+    }
+    .user-details, .order-details {
+      margin: 20px 0;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background: #f4f4f4;
+    }
+    .section-title {
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .row div {
+      width: 48%;
+    }
+    .items {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    .items th, .items td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+    .items th {
+      background-color: #f4f4f4;
+    }
+    .charges {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background: #f9f9f9;
+    }
+    .charges .row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .total {
+      text-align: right;
+      font-size: 1.3em;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #777;
+    }
+    .qr-code {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .qr-code img {
+      max-width: 150px;
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-container">
+    <div class="header">
+      <img src="logo.png" alt="Company Logo">
+      <h1>Order Invoice</h1>
+    </div>
+
+    <div class="user-details">
+      <div class="section-title">User Details</div>
+      <p id="name"><strong>Name:</strong> {{name}}</p>
+      <p><strong>Email:</strong> {{email}}</p>
+      <p><strong>Address:</strong> {{address}}</p>
+    </div>
+
+    <div class="order-details">
+      <div class="section-title">Order Details</div>
+      <p><strong>Order ID:</strong> {{orderId}}</p>
+      <p><strong>Date & Time:</strong> {{date}}</p>
+      <p><strong>Payment Method:</strong> {{payment}}</p>
+    </div>
+
+    <table class="items">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{items}}
+      </tbody>
+    </table>
+
+    <div class="charges">
+      <div class="row">
+        <div>Subtotal:</div>
+        <div>${{subtotal}}</div>
+      </div>
+      <div class="row">
+        <div>GST (18%):</div>
+        <div>${{gst}}</div>
+      </div>
+      <div class="row">
+        <div>Other Charges:</div>
+        <div>${{otherCharges}}</div>
+      </div>
+    </div>
+
+    <div class="total">
+      Grand Total: ${{total}}
+    </div>
+
+    <div class="qr-code">
+      <div class="section-title">Scan to View Order</div>
+      <img src="qr-code-placeholder.png" alt="QR Code">
+    </div>
+
+    <div class="footer">
+      Thank you for your order! If you have any questions, contact us at support@example.com.
+    </div>
+  </div>
+</body>
+<script src="./javascript/order.js"></script>
+</html>

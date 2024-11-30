@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../Components/Header";
 import "../css/Home.css";
 import OrderContainer from "../Components/home/OrderContainer";
 import ProductContainer from "../Components/home/ProductContainer";
@@ -34,14 +33,16 @@ export default function Home() {
   }, []);
 
   const alertMessage = async () => {
-    const res = await ProductQuery.alertProduct();
-      console.log(res);
-    // const date = new Date();
-    // if (localStorage.getItem("timeOver") === date.getDate().toString()) {
-    //   localStorage.setItem("timeOver", date.getDate().toString());
-
+    
+    const date = new Date();
+    console.log("alertMessage");
+    if (localStorage.getItem("timeOver") !== date.getDate().toString()) {
+      localStorage.setItem("timeOver", date.getDate().toString());
+      const res = await ProductQuery.alertProduct();
       
-    // }
+      console.log(res);
+      
+    }
   };
   return (
     <>

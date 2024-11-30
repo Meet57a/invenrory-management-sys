@@ -1,9 +1,10 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import "../css/order.css";
 import { OrderQuery } from "../providers/queries/order.query";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoChevronBackSharp } from "react-icons/io5";
+import { PdfQuery } from "../providers/queries/Pdf.query";
 
 export default function Orders() {
   type Product = {
@@ -34,10 +35,18 @@ export default function Orders() {
     OrederAcceptedOrNot: string;
   };
 
-  type Selected = "Orders" | "Order Details";
+  type Selected =
+    | "Orders"
+    | "Order Details"
+    | "Pending"
+    | "Processing"
+    | "Shipped"
+    | "Delivered";
+
   const [orders, setOrders] = useState<Order[]>([]);
   const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
-  const [selected, setSelected] = useState<Selected>("Orders");
+  const [selected, setSelected] = useState<Selected>("Pending");
+
   const [aOrder, setAOrder] = useState<Order>({
     _id: "",
     OrderId: "",
@@ -55,12 +64,26 @@ export default function Orders() {
   });
 
   const handleSelecteChange = (selected: Selected, orderId: string) => {
-    if (selected === "Orders") {
-      setSelected("Orders");
-    } else {
+    if (selected === "Pending") {
+      const order = orders.filter((order) => order.Status === "Pending");
+      setFilteredOrders(order);
+      setSelected("Pending");
+    } else if (selected === "Order Details") {
       const order = orders.filter((order) => order._id === orderId);
       setAOrder(order[0]);
       setSelected("Order Details");
+    } else if (selected === "Processing") {
+      const order = orders.filter((order) => order.Status === "Processing");
+      setFilteredOrders(order);
+      setSelected("Processing");
+    } else if (selected === "Shipped") {
+      const order = orders.filter((order) => order.Status === "Shipped");
+      setFilteredOrders(order);
+      setSelected("Shipped");
+    } else if (selected === "Delivered") {
+      const order = orders.filter((order) => order.Status === "Delivered");
+      setFilteredOrders(order);
+      setSelected("Delivered");
     }
   };
 
@@ -70,7 +93,11 @@ export default function Orders() {
       if (res) {
         setOrders(res.data);
         console.log(orders);
-        setFilteredOrders(res.data);
+        setFilteredOrders(
+          res.data.filter(
+            (order: { Status: string }) => order.Status === "Pending"
+          )
+        );
       } else {
         console.log("Error fetching orders");
       }
@@ -109,7 +136,7 @@ export default function Orders() {
       );
     }
   };
-
+  const getTargetElement = () => document.getElementById("content-id");
   const handleChange = async (
     e:
       | React.ChangeEvent
@@ -130,6 +157,8 @@ export default function Orders() {
       });
 
       if (res["status"] === 200) {
+        setFilteredOrders(newOrders);
+
         toast.success(res["message"], {
           position: "top-right",
           autoClose: 2000,
@@ -189,13 +218,56 @@ export default function Orders() {
     }
   };
 
+  const handlePdf = async () => {
+    console.log(aOrder._id);
+
+    const res = await PdfQuery.generatePdf(aOrder._id);
+    console.log(res);
+
+    if (res) {
+      toast.success(res["message"], {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+
+      const pdf = res["data"];
+
+      const a = document.createElement("a");
+      a.href = pdf["path"];
+      a.setAttribute("download", "output.pdf");
+      a.download = "output.pdf";
+      a.target = "_blank";
+      a.click();
+    } else {
+      toast.error(res["message"], {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    }
+  };
   return (
     <div className="order-body">
       <div className="left-container-order">
         <h3>Select</h3>
         <div className="components-order">
-          <button>All Orders</button>
-          <button>Delivered</button>
+          <button onClick={() => handleSelecteChange("Pending", "")}>
+            Pending
+          </button>
+          <button onClick={() => handleSelecteChange("Processing", "")}>
+            Processing
+          </button>
+          <button onClick={() => handleSelecteChange("Shipped", "")}>
+            Shipped
+          </button>
+          <button onClick={() => handleSelecteChange("Delivered", "")}>
+            Delivered
+          </button>
           {/* <button>Processing</button>
           <button>Cancelled</button> */}
         </div>
@@ -206,15 +278,20 @@ export default function Orders() {
             <div className="info-bar-order-details">
               <button
                 className="back-button"
-                onClick={() => handleSelecteChange("Orders", "")}
+                onClick={() => handleSelecteChange("Pending", "")}
               >
                 <IoChevronBackSharp size={25} />
               </button>
               <h3>{selected}</h3>
             </div>
           ) : null}
-          {selected === "Orders" ? <h3>{selected}</h3> : null}
-          {selected === "Orders" ? (
+          {selected === "Pending" ||
+          selected === "Delivered" ||
+          selected === "Processing" ||
+          selected === "Shipped" ? (
+            <h3>{selected}</h3>
+          ) : null}
+          {/* {selected === "Pending" ? (
             <div className="filters">
               <select name="statusFilter" id="" onChange={handleFilter}>
                 <option value="All">Filter Status</option>
@@ -234,7 +311,7 @@ export default function Orders() {
                 <option value="Cancelled">Cancelled</option>
               </select>
             </div>
-          ) : null}
+          ) : null} */}
         </div>
 
         {selected === "Order Details" ? (
@@ -281,6 +358,14 @@ export default function Orders() {
                   </div>
                 </div>
               ))}
+              <div className="order-detail-button">
+                <button
+                  style={{ background: "#76abae", border: "none" }}
+                  onClick={() => handlePdf()}
+                >
+                  Download Invoice
+                </button>
+              </div>
             </div>
             <div className="order-details">
               <h3>Order Details</h3>
@@ -375,7 +460,6 @@ export default function Orders() {
                       : {}
                   }
                   onClick={(e) => handleChange(e, aOrder._id, "Canceled")}
-
                 >
                   {aOrder.OrederAcceptedOrNot === "Canceled"
                     ? "Cancelled"
@@ -385,7 +469,7 @@ export default function Orders() {
             </div>
           </div>
         ) : null}
-        {selected === "Orders" ? (
+        {selected !== "Order Details" ? (
           <div className="main-content-body-order">
             <div>
               <div className="order-heading">
@@ -413,6 +497,8 @@ export default function Orders() {
                   <div className="email">{value.Email}</div>
                   {value.OrederAcceptedOrNot === "Canceled" ? (
                     <div style={{ color: "red" }}>Cancelled</div>
+                  ) : value.Status === "Delivered" ? (
+                    <div style={{ color: "green" }}>Delivered</div>
                   ) : (
                     <select
                       name="Status"
@@ -447,46 +533,50 @@ export default function Orders() {
                   >
                     {value.PaymentStatus}
                   </div>
-                  <div className="actions">
-                    <div className="orders-action-button">
-                      <button
-                        style={
-                          value.OrederAcceptedOrNot === "Accepted"
-                            ? { backgroundColor: "green" }
-                            : {}
-                        }
-                        onClick={(e) => handleChange(e, value._id, "Accepted")}
-                      >
-                        {value.OrederAcceptedOrNot === "Accepted"
-                          ? "Accepted"
-                          : "Accept"}
-                      </button>
-                      <button
-                        style={
-                          value.OrederAcceptedOrNot === "Canceled"
-                            ? { backgroundColor: "red" }
-                            : {}
-                        }
-                        onClick={(e) => {
-                          handleChange(e, value._id, "Canceled");
-                        }}
-                      >
-                        {value.OrederAcceptedOrNot === "Canceled"
-                          ? "Cancelled"
-                          : "Cancel"}
-                      </button>
+                  {selected !== "Delivered" ? (
+                    <div className="actions">
+                      <div className="orders-action-button">
+                        <button
+                          style={
+                            value.OrederAcceptedOrNot === "Accepted"
+                              ? { backgroundColor: "green" }
+                              : {}
+                          }
+                          onClick={(e) =>
+                            handleChange(e, value._id, "Accepted")
+                          }
+                        >
+                          {value.OrederAcceptedOrNot === "Accepted"
+                            ? "Accepted"
+                            : "Accept"}
+                        </button>
+                        <button
+                          style={
+                            value.OrederAcceptedOrNot === "Canceled"
+                              ? { backgroundColor: "red" }
+                              : {}
+                          }
+                          onClick={(e) => {
+                            handleChange(e, value._id, "Canceled");
+                          }}
+                        >
+                          {value.OrederAcceptedOrNot === "Canceled"
+                            ? "Cancelled"
+                            : "Cancel"}
+                        </button>
+                      </div>
+                      <div>
+                        <button
+                          className="see-more-button"
+                          onClick={() =>
+                            handleSelecteChange("Order Details", value._id)
+                          }
+                        >
+                          See More
+                        </button>
+                      </div>
                     </div>
-                    <div>
-                      <button
-                        className="see-more-button"
-                        onClick={() =>
-                          handleSelecteChange("Order Details", value._id)
-                        }
-                      >
-                        See More
-                      </button>
-                    </div>
-                  </div>
+                  ) : null}
                 </div>
               ))}
             </div>

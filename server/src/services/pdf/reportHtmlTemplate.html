@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Report</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 20mm;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      .overview-container,
+      .report-container {
+        width: 100%;
+        max-width: 210mm; /* A4 width */
+        margin: 0 auto;
+        padding: 20mm;
+        box-sizing: border-box;
+      }
+      .overview-container {
+        page-break-after: always;
+        background-color: #f0f8ff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+      }
+      .overview-header,
+      .report-header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .overview-header h1,
+      .report-header h1 {
+        font-size: 24px;
+        margin: 0;
+      }
+      .overview-section {
+        margin-bottom: 15px;
+      }
+      .overview-section h2 {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+      .overview-section p {
+        margin: 5px 0;
+      }
+      .highlight {
+        color: #2c3e50;
+        font-weight: bold;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+      table th,
+      table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+      }
+      table th {
+        background-color: #f0f0f0;
+      }
+      .report-container {
+        page-break-after: always;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Overview Section -->
+    <div class="overview-container">
+      <div class="overview-header">
+        <h1>Product Overview</h1>
+      </div>
+      <div class="overview-section">
+        <h2>Summary</h2>
+        <p><strong>Total Products:</strong> {{totalProducts}}</p>
+        <p><strong>Products in Stock:</strong> {{totalStock}}</p>
+        <p><strong>Low Stock Products:</strong> {{totalLowStock}}</p>
+      </div>
+      <div class="overview-section">
+        <h2>Stock Status</h2>
+        <table>
+          <tr>
+            <th>Category</th>
+            <th>Subcategory</th>
+            <th>Total Units</th>
+            <th>Products in Stock</th>
+            <th>Low Stock Products</th>
+          </tr>
+          <tr>
+            <td>{{categories}}</td>
+            <td>{{subCategories}}}</td>
+            <td>5</td>
+            <td>1</td>
+            <td>1</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Individual Product Report Section -->
+    <div class="report-container">
+      <div class="report-header">
+        <h1>Product Report</h1>
+        <p><strong>Product ID:</strong> P001</p>
+      </div>
+
+      <div class="report-section">
+        <h2>Basic Information</h2>
+        <p><strong>Title:</strong> Wireless Mouse</p>
+        <p><strong>Category:</strong> Electronics</p>
+        <p><strong>Subcategory:</strong> Computer Accessories</p>
+      </div>
+
+      <div class="report-section">
+        <h2>Pricing and Stock</h2>
+        <table>
+          <tr>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Stock</th>
+            <th>Low Stock Limit</th>
+          </tr>
+          <tr>
+            <td>$25.99</td>
+            <td>5 units</td>
+            <td>9</td>
+            <td>10</td>
+          </tr>
+        </table>
+        <p>
+          <strong>Stock Status:</strong>
+          <span class="highlight">Low Stock</span>
+        </p>
+      </div>
+
+      <div class="report-section">
+        <h2>Description</h2>
+        <p>Ergonomic wireless mouse with adjustable DPI</p>
+      </div>
+
+      <div class="report-section">
+        <h2>Visibility</h2>
+        <p><strong>Visible:</strong> True</p>
+      </div>
+
+      <div class="report-section">
+        <h2>Last Updated</h2>
+        <p>Updated At: 2024-10-23T03:08:50.383Z</p>
+      </div>
+    </div>
+  </body>
+</html>

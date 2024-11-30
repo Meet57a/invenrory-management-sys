@@ -1,3 +1,5 @@
+const { path } = require('../app');
+
 const router = require('express').Router();
 
 const routes = [
@@ -12,7 +14,12 @@ const routes = [
     {
         path: "/order",
         router: require('./orders.route')
-    }
+    },
+    {
+        path: "/pdf",
+        router: require('./pdf.route')
+    },
+   
 ];
 
 routes.forEach((route) => {
