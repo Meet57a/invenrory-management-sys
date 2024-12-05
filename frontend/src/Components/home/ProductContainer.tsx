@@ -38,7 +38,7 @@ export default function ProductContainer() {
         setLowStock(
           res.products.filter(
             (pro: { Stock: number; LimitLowStock: number }) =>
-              pro.Stock <= pro.LimitLowStock && pro.Stock !== 0
+              pro.Stock < pro.LimitLowStock && pro.Stock !== 0
           )
         );
         setOutOfStock(

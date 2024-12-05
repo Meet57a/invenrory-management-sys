@@ -495,32 +495,14 @@ export default function Orders() {
                     <div className="id">{value.OrderId}</div>
                   </div>
                   <div className="email">{value.Email}</div>
-                  {value.OrederAcceptedOrNot === "Canceled" ? (
-                    <div style={{ color: "red" }}>Cancelled</div>
+                  {value.Status === "Pending" ? (
+                    <div style={{ color: "red" }}>Pending</div>
                   ) : value.Status === "Delivered" ? (
                     <div style={{ color: "green" }}>Delivered</div>
+                  ) : value.Status === "Processing" ? (
+                    <div style={{ color: "yellow" }}>Processing</div>
                   ) : (
-                    <select
-                      name="Status"
-                      id=""
-                      className="select-order-status"
-                      style={
-                        value.Status === "Shipped"
-                          ? { borderColor: "white" }
-                          : value.Status === "Processing"
-                          ? { borderColor: "yellow" }
-                          : value.Status === "Delivered"
-                          ? { borderColor: "green" }
-                          : { borderColor: "red" }
-                      }
-                      value={value.Status}
-                      onChange={(e) => handleChange(e, value._id, "")}
-                    >
-                      <option value="Shipped">Shipped</option>
-                      <option value="Processing">Processing</option>
-                      <option value="Delivered">Delivered</option>
-                      <option value="Cancelled">Cancelled</option>
-                    </select>
+                    <div style={{ color: "white" }}>Shipped</div>
                   )}
                   <div
                     style={

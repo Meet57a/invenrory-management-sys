@@ -15,7 +15,6 @@ class PdfController {
 
     static CreateReportPdfController = CatchAsync(async (req, res) => {
         console.log("Dddddd");
-        
         const res_obj = await ReportPdfService();
         res.status(httpStatus.CREATED).send(res_obj);
     })

@@ -41,11 +41,13 @@ export default function OrderContainer() {
   const [deliveredOrders, setDeliveredOrders] = useState(0);
   const [pendingOrders, setPendingOrders] = useState(0);
   const [canceledOrders, setCanceledOrders] = useState(0);
+  const [processingOrder, setprocessingOrder] = useState(0);
   const [monthlyRevenue, setMonthlyRevenue] = useState<monthlyRevenue[]>([]);
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const res = await OrderQuery.getOrders();
+      const res = await OrderQuery.getOrders(); 
+      
       if (res) {
         setOrders(res.data);
       } else {
@@ -68,14 +70,19 @@ export default function OrderContainer() {
         .length
     );
     setPendingOrders(
-      orders.filter(
-        (order: { Status: string }) => order.Status === "Processing"
-      ).length
+      orders.filter((order: { Status: string }) => order.Status === "Pending")
+        .length
     );
 
     setCanceledOrders(
       orders.filter((order: { Status: string }) => order.Status === "Cancelled")
         .length
+    );
+
+    setprocessingOrder(
+      orders.filter(
+        (order: { Status: string }) => order.Status === "Processing"
+      ).length
     );
   };
 
@@ -125,14 +132,14 @@ export default function OrderContainer() {
           <div className="icon"></div>
           <div>
             <h3>Processing Orders</h3>
-            <h2>{pendingOrders}</h2>
+            <h2>{processingOrder}</h2>
           </div>
         </div>
         <div className="card">
           <div className="icon"></div>
           <div>
-            <h3>Cancelled Orders</h3>
-            <h2>{canceledOrders}</h2>
+            <h3>Pending Orders</h3>
+            <h2>{pendingOrders}</h2>
           </div>
         </div>
       </div>

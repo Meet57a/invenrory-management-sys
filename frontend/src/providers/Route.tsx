@@ -8,6 +8,7 @@ import CategoryAddForm from "../Components/forms-pages/CategoryAddForm";
 import ProductAddForm from "../Components/forms-pages/ProductAddForm";
 import SubCategoryAddForm from "../Components/forms-pages/SubCategoryAddForm";
 import Orders from "../pages/Orders";
+import QrScan from "../pages/QrScan";
 
 export const Routes = createBrowserRouter([
   {
@@ -50,4 +51,8 @@ export const Routes = createBrowserRouter([
     path: "/orders",
     Component: Orders,
   },
+  {
+    path: "/scanner",
+    Component: QrScan,
+  }
 ]);

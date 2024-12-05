@@ -11,7 +11,7 @@ export default function Header() {
           <a href="/inventory">Inventory</a>
           <a href="/add">Add</a>
           <a href="/orders">Orders</a>
-          <a href="/">Profile</a>
+       
         </div>
       </div>
     </div>

@@ -10,6 +10,7 @@ import { IoIosSearch } from "react-icons/io";
 import { GoEyeClosed } from "react-icons/go";
 import { IoMdDownload } from "react-icons/io";
 import { PdfQuery } from "../providers/queries/Pdf.query";
+import QRCode from "react-qr-code";
 
 export default function Inventory() {
   type Category = {
@@ -91,6 +92,32 @@ export default function Inventory() {
             value.SubCategory === e.target.value
         );
         setFilteredProduct(filteredProduct);
+      }
+    } else if (selected === "Categories") {
+      if (e.target.value === "") {
+        setFilterdCategory(category);
+      } else {
+        if (e.target.name === "filterCategory") {
+          const filteredCategory = category.filter((value) =>
+            value.Category.toLowerCase().includes(e.target.value.toLowerCase())
+          );
+          setFilterdCategory(filteredCategory);
+        }
+      }
+    } else if (selected === "Sub Categories") {
+      if (e.target.value === "") {
+        setFilterdSubCategory(subcategory);
+      } else {
+        if (e.target.name === "filterCategory") {
+          const fileterd = subcategory.filter((val) => {
+            return val.Category === e.target.value;
+          });
+          setFilterdSubCategory(fileterd);
+        }
+        const filteredSubCategory = subcategory.filter((value) => {
+          return value.SubCategory === e.target.value;
+        });
+        setFilterdSubCategory(filteredSubCategory);
       }
     }
   };
@@ -438,8 +465,8 @@ export default function Inventory() {
 
   const handleReportPdf = async () => {
     const res = await PdfQuery.generatePdfReport();
-
-    if (res["status"] === 200) {
+    const pdf = res["data"];
+    if (res["status"] === 201) {
       toast.success(res["message"], {
         position: "top-right",
         autoClose: 2000,
@@ -448,8 +475,9 @@ export default function Inventory() {
         pauseOnHover: true,
       });
       const a = document.createElement("a");
-      a.href = res["path"];
+      a.href = pdf["path"];
       a.download = "report.pdf";
+      a.target = "_blank";
       a.click();
     } else {
       toast.error(res["message"], {
@@ -476,6 +504,7 @@ export default function Inventory() {
           <button onClick={() => handleSelecteChange("Sub Categories")}>
             Sub Category
           </button>
+          <QRCode value="get-report-from-qr" className="qr-inventory" size={200}/>
         </div>
       </div>
       <div className="right-container">

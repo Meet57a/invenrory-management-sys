@@ -2,14 +2,16 @@ var pdf = require("pdf-creator-node");
 var fs = require("fs");
 const pdfDataSet = require('./dataSet/report');
 const httpStatus = require("http-status");
+const ApiError = require("../../utils/ApiError");
+
 
 var options = {
     format: "A4",
     orientation: "portrait",
     border: "10mm",
-}
+};
 
-const createReportPdf = async (res) => {
+const CreateReportPdf = async (req, res) => {
     try {
         const doc = await pdfDataSet();
 
@@ -30,9 +32,9 @@ const createReportPdf = async (res) => {
 
     } catch (error) {
         console.log(error);
-    
+        throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error");
+        
     }
-
 }
 
-module.exports = createReportPdf;
+module.exports = CreateReportPdf;

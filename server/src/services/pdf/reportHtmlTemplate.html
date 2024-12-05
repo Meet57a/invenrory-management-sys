@@ -89,71 +89,15 @@
           <tr>
             <th>Category</th>
             <th>Subcategory</th>
-            <th>Total Units</th>
             <th>Products in Stock</th>
             <th>Low Stock Products</th>
           </tr>
-          <tr>
-            <td>{{categories}}</td>
-            <td>{{subCategories}}}</td>
-            <td>5</td>
-            <td>1</td>
-            <td>1</td>
-          </tr>
+          {{categoryWiseData}}
         </table>
       </div>
     </div>
 
     <!-- Individual Product Report Section -->
-    <div class="report-container">
-      <div class="report-header">
-        <h1>Product Report</h1>
-        <p><strong>Product ID:</strong> P001</p>
-      </div>
-
-      <div class="report-section">
-        <h2>Basic Information</h2>
-        <p><strong>Title:</strong> Wireless Mouse</p>
-        <p><strong>Category:</strong> Electronics</p>
-        <p><strong>Subcategory:</strong> Computer Accessories</p>
-      </div>
-
-      <div class="report-section">
-        <h2>Pricing and Stock</h2>
-        <table>
-          <tr>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Stock</th>
-            <th>Low Stock Limit</th>
-          </tr>
-          <tr>
-            <td>$25.99</td>
-            <td>5 units</td>
-            <td>9</td>
-            <td>10</td>
-          </tr>
-        </table>
-        <p>
-          <strong>Stock Status:</strong>
-          <span class="highlight">Low Stock</span>
-        </p>
-      </div>
-
-      <div class="report-section">
-        <h2>Description</h2>
-        <p>Ergonomic wireless mouse with adjustable DPI</p>
-      </div>
-
-      <div class="report-section">
-        <h2>Visibility</h2>
-        <p><strong>Visible:</strong> True</p>
-      </div>
-
-      <div class="report-section">
-        <h2>Last Updated</h2>
-        <p>Updated At: 2024-10-23T03:08:50.383Z</p>
-      </div>
-    </div>
+    {{individualProductReport}}
   </body>
 </html>

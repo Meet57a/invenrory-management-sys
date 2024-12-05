@@ -19,7 +19,10 @@ const routes = [
         path: "/pdf",
         router: require('./pdf.route')
     },
-   
+    {
+        path: "/qrscan",
+        router: require('./Qr.route')
+    }
 ];
 
 routes.forEach((route) => {

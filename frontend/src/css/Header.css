@@ -45,3 +45,19 @@
 }
 
 
+@media screen and (max-width: 768px) {
+  .nav-bar {
+    padding: 10px 10px 10px 10px;
+    display: none;
+  }
+  .title {
+    font-size: 15px;
+  }
+  .links {
+    gap: 20px;
+  }
+  .links a {
+    font-size: 12px;
+  }
+  
+}
